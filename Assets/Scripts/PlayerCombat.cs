@@ -21,19 +21,19 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetButton("Fire1"))
             {
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
         }
-
-
     }
 
     void Attack()
     {
         animator.SetTrigger("Attack");
+
+        Debug.Log("Attacking!");
 
         // Detect enemies in range of attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);

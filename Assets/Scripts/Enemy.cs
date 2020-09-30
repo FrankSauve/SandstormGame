@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 
     public Animator animator;
     public GameObject enemyObject;
+    public HealthBar healthBar;
+    public GameObject healthBarCanvas;
 
     public int maxHealth = 100;
     int currentHealth;
@@ -15,11 +17,13 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
 
         // Play hurt animation
         animator.SetTrigger("Hurt");
@@ -34,6 +38,7 @@ public class Enemy : MonoBehaviour
     {
         // Die animation
         animator.SetBool("IsDead", true);
+        healthBarCanvas.SetActive(false);
 
         GetComponent<Collider2D>().enabled = false;
         Destroy(enemyObject, 3.0f);
